@@ -75,7 +75,7 @@ function MainPage() {
     <>
       <StyledFullPageSection>
         <StyledMainContent className={isMainVisible ? 'visible' : ''}>
-          <Typography variant="h2" align="center" color="white" gutterBottom>
+          <Typography variant="h1" align="center" color="white" gutterBottom>
             Japanese Learning Website
           </Typography>
           <Button variant="contained" color="primary" onClick={handleButtonClick}>

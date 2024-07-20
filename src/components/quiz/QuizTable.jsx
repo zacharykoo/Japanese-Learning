@@ -49,7 +49,9 @@ const QuizTable = () => {
 
   const handleCardClick = (sectionId) => {
     const section = document.getElementById(sectionId);
-    section.scrollIntoView({ behavior: 'smooth' });
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -61,14 +63,14 @@ const QuizTable = () => {
           </Typography>
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={6}>
-              <CardActionArea onClick={() => handleCardClick('Kanji-Quizzes')}>
+              <CardActionArea onClick={() => handleCardClick('kanji-quizzes')}>
                 <StyledCard>
                   <Typography variant="h6">Kanji Quizzes</Typography>
                 </StyledCard>
               </CardActionArea>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CardActionArea onClick={() => handleCardClick('Genki-Quizzes')}>
+              <CardActionArea onClick={() => handleCardClick('genki-quizzes')}>
                 <StyledCard>
                   <Typography variant="h6">Genki Quizzes</Typography>
                 </StyledCard>
@@ -78,8 +80,8 @@ const QuizTable = () => {
         </ContentContainer>
       </FullPageContainer>
       <Box>
-        <QuizSection title="Kanji Quizzes" subtitlePrefix="Kanji Quiz" numberOfQuizzes={10} />
-        <QuizSection title="Genki Quizzes" subtitlePrefix="Genki Quiz" numberOfQuizzes={10} />
+        <QuizSection id="kanji-quizzes" title="Kanji Quizzes" subtitlePrefix="kanji-quiz" numberOfQuizzes={10} />
+        <QuizSection id="genki-quizzes" title="Genki Quizzes" subtitlePrefix="genki-quiz" numberOfQuizzes={10} />
       </Box>
     </>
   );
