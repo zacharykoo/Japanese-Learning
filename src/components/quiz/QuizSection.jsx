@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Button, Grid } from '@mui/material';
-import { styled } from '@mui/system';
+import { Box, Container, Typography, Button, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
+import { styled } from '@mui/system';
+import StudyImage from '../../app-images/studying_animal.jpg';
+import LearningImage from '../../app-images/learning_animal.jpg';
 
 const StyledSection = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -27,8 +30,28 @@ const ContentContainer = styled(Container)({
   },
 });
 
-const QuizSection = ({ title, id, subtitlePrefix, numberOfQuizzes }) => {
+const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
+  borderRadius: '12px',
+  margin: '1rem 0',
+  width: '100%',
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: '4px',
+  width: '100%',
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
+
+const QuizSection = ({ title, id, subtitlePrefix, numberOfQuizzes, showImage }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [visibleQuizzes, setVisibleQuizzes] = useState(10);
+  const [displayedImage, setDisplayedImage] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,39 +70,74 @@ const QuizSection = ({ title, id, subtitlePrefix, numberOfQuizzes }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [id]);
 
+  useEffect(() => {
+    if (showImage === 'Study') {
+      setDisplayedImage(StudyImage);
+    } else if (showImage === 'Learning') {
+      setDisplayedImage(LearningImage);
+    } else {
+      setDisplayedImage(null);
+    }
+  }, [showImage]);
+
+  const handleShowMore = () => {
+    setVisibleQuizzes((prev) => prev + 5);
+  };
+
+  const levels = Array.from({ length: 5 }).map((_, n) => `N${5 - n}`);
+
   return (
     <StyledSection id={id}>
       <ContentContainer className={isVisible ? 'visible' : ''}>
-        <Typography variant="h4" align="center" gutterBottom>
-          {title}
-        </Typography>
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
-          {Array.from({ length: 5 }).map((_, n) => {
-            const level = `N${5 - n}`;
-            const quizType = subtitlePrefix.toLowerCase().replace(' ', '-');
-            return (
-              <Grid item xs={12} sm={6} md={2} key={level}>
-                <Box sx={{ marginBottom: '1rem' }}>
-                  <Typography variant="h5" align="center" gutterBottom>
-                    {level}
-                  </Typography>
-                  {Array.from({ length: numberOfQuizzes }).map((_, index) => (
-                    <Button
-                      key={index}
+        <Box display="flex" flexDirection="column" alignItems="center">
+          {displayedImage && (
+            <img
+              src={displayedImage}
+              alt="Quiz"
+              style={{
+                width: '400px',
+                height: 'auto',
+                borderRadius: '8px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                marginBottom: '1rem', // Add margin to space it from the title
+              }}
+            />
+          )}
+          <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main' }}>
+            {title}
+          </Typography>
+        </Box>
+        {levels.map((level) => (
+          <StyledAccordion key={level}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="h5" sx={{ color: 'text.primary' }}>
+                {level}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2} justifyContent="center" alignItems="center">
+                {Array.from({ length: Math.min(numberOfQuizzes, visibleQuizzes) }).map((_, index) => (
+                  <Grid item xs={12} sm={6} md={4} key={index}>
+                    <StyledButton
                       variant="contained"
-                      color="primary"
                       component={Link}
-                      to={`/quiz/${quizType}/${level.toUpperCase()}/${index + 1}`}
-                      sx={{ margin: '4px', width: '100%' }}
+                      to={`/quiz/${subtitlePrefix}/${level.toUpperCase()}/${index + 1}`}
                     >
                       {`${level} Quiz ${index + 1}`}
+                    </StyledButton>
+                  </Grid>
+                ))}
+                {visibleQuizzes < numberOfQuizzes && (
+                  <Grid item xs={12} style={{ textAlign: 'center' }}>
+                    <Button variant="outlined" onClick={handleShowMore} sx={{ marginTop: '1rem' }}>
+                      Show More
                     </Button>
-                  ))}
-                </Box>
+                  </Grid>
+                )}
               </Grid>
-            );
-          })}
-        </Grid>
+            </AccordionDetails>
+          </StyledAccordion>
+        ))}
       </ContentContainer>
     </StyledSection>
   );

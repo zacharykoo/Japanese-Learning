@@ -4,15 +4,26 @@ import { Box, Typography } from '@mui/material';
 import ImportQuestion from '../ImportQuestion';
 
 const Quiz = () => {
-  const { number, level } = useParams();
+  const { number, level, subLevel } = useParams();
   const quizType = window.location.pathname.includes('kanji') ? 'Kanji' : 'Genki';
+
+  let fileName = '';
+  if (quizType === 'Kanji') {
+    if (subLevel === 'advanced') {
+      fileName = `${level}KanjiAdvancedQuiz${number}.csv`;
+    } else {
+      fileName = `${level}KanjiQuiz${number}.csv`;
+    }
+  } else {
+    fileName = `${level}GenkiQuiz${number}.csv`;
+  }
 
   return (
     <Box>
       <Typography variant="h4" align="center" gutterBottom>
         {`${quizType} Quiz ${number}`}
       </Typography>
-      <ImportQuestion fileName={`${level}${quizType}Quiz${number}.csv`}/>
+      <ImportQuestion fileName={fileName} />
     </Box>
   );
 };

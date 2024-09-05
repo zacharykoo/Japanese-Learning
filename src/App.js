@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';
 import MainPage from './components/MainPage';
 import QuizRoutes from './routes/QuizRoutes';
+import Yang from './components/yang/Yang';
 
 const theme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/quiz/*" element={<QuizRoutes />} />
+          <Route path="/xiaoJieYang" element={<Yang />} />
         </Routes>
       </Router>
     </ThemeProvider>
