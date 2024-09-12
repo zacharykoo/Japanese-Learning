@@ -42,7 +42,8 @@ function ImportQuestion({ fileName }) {
                                     C: row[5],
                                     D: row[6]
                                 },
-                                Answer: row[2]
+                                Answer: row[2],
+                                Image: row[7]
                             }));
                             setData(parsedData);
                         }
@@ -111,17 +112,39 @@ function ImportQuestion({ fileName }) {
                 </Button>
                 {data.length > 0 && (
                     <>
-                        <Table>
+                        <Table sx={{ width: '100%' }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell sx={{ color: '#1a237e', fontWeight: 'bold', fontFamily: 'Roboto, sans-serif', fontSize: '1.2rem' }}>質問</TableCell>
-                                    <TableCell sx={{ color: '#1a237e', fontWeight: 'bold', fontFamily: 'Roboto, sans-serif', fontSize: '1.2rem' }}>選択肢</TableCell>
+                                    <TableCell sx={{ width: '40%', color: '#1a237e', fontWeight: 'bold', fontFamily: 'Roboto, sans-serif', fontSize: '1.2rem' }}>
+                                        質問
+                                    </TableCell>
+                                    <TableCell sx={{ width: '60%', color: '#1a237e', fontWeight: 'bold', fontFamily: 'Roboto, sans-serif', fontSize: '1.2rem' }}>
+                                        選択肢
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {data.map((row, index) => (
                                     <TableRow key={index}>
-                                        <TableCell sx={{ padding: '8px 16px', fontFamily: 'Roboto, sans-serif', fontSize: '1rem' }}>{renderTextWithUnderlines(row.Question)}</TableCell>
+                                        <TableCell sx={{ padding: '8px 16px', fontFamily: 'Roboto, sans-serif', fontSize: '1rem' }}>
+                                            {renderTextWithUnderlines(row.Question)}
+                                            {row.Image && (
+                                                <Box sx={{ textAlign: 'center', margin: '10px 0' }}>
+                                                    <img 
+                                                        src={row.Image} 
+                                                        alt={`Question ${index + 1}`} 
+                                                        style={{ 
+                                                            maxWidth: '200px', 
+                                                            maxHeight: '200px', 
+                                                            width: '100%', 
+                                                            height: 'auto', 
+                                                            borderRadius: '8px', 
+                                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' 
+                                                        }} 
+                                                    />
+                                                </Box>
+                                            )}
+                                        </TableCell>
                                         <TableCell sx={{ padding: '8px 16px', fontFamily: 'Roboto, sans-serif', fontSize: '1rem' }}>
                                             <RadioGroup
                                                 name={`question-${row.id}`}
