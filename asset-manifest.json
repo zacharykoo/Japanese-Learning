@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Japanese-Learning/static/css/main.c68379d4.css",
-    "main.js": "/Japanese-Learning/static/js/main.5b711dfa.js",
+    "main.js": "/Japanese-Learning/static/js/main.08d55eaf.js",
     "static/js/24.84b10563.chunk.js": "/Japanese-Learning/static/js/24.84b10563.chunk.js",
     "static/js/795.eafae154.chunk.js": "/Japanese-Learning/static/js/795.eafae154.chunk.js",
     "static/js/534.d8bdf69c.chunk.js": "/Japanese-Learning/static/js/534.d8bdf69c.chunk.js",
@@ -43,11 +43,11 @@
     "static/media/N5KanjiQuiz1.csv": "/Japanese-Learning/static/media/N5KanjiQuiz1.4888a9d4b1af17a43925.csv",
     "index.html": "/Japanese-Learning/index.html",
     "main.c68379d4.css.map": "/Japanese-Learning/static/css/main.c68379d4.css.map",
-    "main.5b711dfa.js.map": "/Japanese-Learning/static/js/main.5b711dfa.js.map",
+    "main.08d55eaf.js.map": "/Japanese-Learning/static/js/main.08d55eaf.js.map",
     "453.9fe0cf68.chunk.js.map": "/Japanese-Learning/static/js/453.9fe0cf68.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c68379d4.css",
-    "static/js/main.5b711dfa.js"
+    "static/js/main.08d55eaf.js"
   ]
 }
