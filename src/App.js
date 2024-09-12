@@ -31,7 +31,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router basename="/Japanese-Learning">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/quiz/*" element={<QuizRoutes />} />
