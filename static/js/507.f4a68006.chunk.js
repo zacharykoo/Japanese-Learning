@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjapanese_learning=self.webpackChunkjapanese_learning||[]).push([[507],{3507:(e,a,s)=>{e.exports=s.p+"static/media/1GenkiQuizGrammar.c598192faff6ab391ec7.csv"}}]);

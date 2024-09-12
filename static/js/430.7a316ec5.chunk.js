@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjapanese_learning=self.webpackChunkjapanese_learning||[]).push([[430],{6430:(e,a,s)=>{e.exports=s.p+"static/media/N5KanjiQuiz5.f02ea41da4d1cf3e7080.csv"}}]);
