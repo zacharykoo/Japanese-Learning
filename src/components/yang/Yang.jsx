@@ -33,7 +33,7 @@ const About = () => {
                 }}
               />
               <Link
-                href="https://arts.ucalgary.ca/languages-linguistics-literatures-cultures/japanese/community/old-japan-redux"
+                href="https://emaki-japan.blogspot.com/"
                 target="_blank"
                 rel="noopener"
                 sx={{ mt: 2, textAlign: 'center' }}

@@ -88,7 +88,7 @@ const Menu = () => {
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
-                        <Link to="/" style={{ textDecoration: 'none' }}>
+                        <Link to="https://sites.google.com/view/hinakosensei/home" style={{ textDecoration: 'none' }}>
                             <StyledCard>
                                 <IconWrapper>
                                     <LanguageIcon style={{ color: '#ffffff' }} />
