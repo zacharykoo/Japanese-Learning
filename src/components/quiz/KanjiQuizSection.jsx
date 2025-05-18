@@ -1,154 +1,148 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Button, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  useTheme,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/system';
-import StudyImage from '../../app-images/studying_animal.jpg';
 
-const StyledSection = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: theme.palette.background.default,
-}));
+const QUIZ_COUNTS = {
+  N5: { basic: 10, advanced: 6 },
+  N4: { basic: 10 },
+  N3: { basic: 15 },
+  N2: { basic: 23 },
+  N1: { basic: 21 },
+};
 
-const ContentContainer = styled(Container)({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  paddingTop: '2rem',
-  opacity: 0,
-  transform: 'translateY(100px)',
-  transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
-  '&.visible': {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-});
-
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  borderRadius: '12px',
-  margin: '1rem 0',
-  width: '100%',
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  margin: '4px',
-  width: '100%',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-  },
-}));
-
-const KanjiQuizSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [visibleQuizzes, setVisibleQuizzes] = useState(10);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById('kanji-quizzes');
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, 500);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleShowMore = () => {
-    setVisibleQuizzes((prev) => prev + 5);
-  };
-
-  const levels = [
-    { level: 'N5', hasSubLevels: true },
-    { level: 'N4', hasSubLevels: true },
-    { level: 'N3', hasSubLevels: true },
-    { level: 'N2', hasSubLevels: false },
-    { level: 'N1', hasSubLevels: false },
-  ];
-
-  const renderQuizzes = (level, subLevel, maxQuizzes) => (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      {Array.from({ length: Math.min(visibleQuizzes, maxQuizzes) }).map((_, index) => (
-        <Grid item xs={12} sm={6} md={4} key={`${level}-${subLevel}-${index}`}>
-          <StyledButton
-            variant="contained"
+const QuizList = ({ level, subLevel, count }) => (
+  <>
+    <Typography variant="subtitle1" fontWeight="bold" mb={1}>
+      {subLevel.charAt(0).toUpperCase() + subLevel.slice(1)}
+    </Typography>
+    {Array.from({ length: count }).map((_, i) => {
+      const quizNumber = i + 1;
+      const quizPath = `/quiz/kanji-quiz/${level}/${subLevel}/${quizNumber}`;
+      return (
+        <Box
+          key={`${level}-${subLevel}-${quizNumber}`}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={1}
+        >
+          <Button
             component={Link}
-            to={`/quiz/kanji-quiz/${level.toUpperCase()}/${subLevel}/${index + 1}`}
+            to={quizPath}
+            variant="text"
+            sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
           >
-            {`${level} ${subLevel} Quiz ${index + 1}`}
-          </StyledButton>
-        </Grid>
-      ))}
-      {visibleQuizzes < maxQuizzes && (
-        <Grid item xs={12} style={{ textAlign: 'center' }}>
-          <Button variant="outlined" onClick={handleShowMore} sx={{ marginTop: '1rem' }}>
-            Show More
+            {`N${level.slice(1)} ${subLevel} – Test ${quizNumber}`}
           </Button>
-        </Grid>
-      )}
-    </Grid>
-  );
+          <Button
+            component={Link}
+            to={quizPath}
+            variant="contained"
+            size="small"
+          >
+            Start
+          </Button>
+        </Box>
+      );
+    })}
+  </>
+);
+
+const KanjiQuizSection = ({ id, title }) => {
+  const theme = useTheme();
 
   return (
-    <StyledSection id="kanji-quizzes">
-      <ContentContainer className={isVisible ? 'visible' : ''}>
-        <Box sx={{ textAlign: 'center', marginBottom: '2rem', position: 'relative' }}>
-          <img
-            src={StudyImage}
-            alt="Quiz"
-            style={{
-              width: '400px',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-              marginBottom: '1rem',
-            }}
-          />
-          <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main' }}>
-            Kanji Quizzes
-          </Typography>
-        </Box>
-        {levels.map(({ level, hasSubLevels }) => (
-          <StyledAccordion key={level}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h5" sx={{ color: 'text.primary' }}>
-                {level}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {hasSubLevels ? (
-                <>
-                  <Typography variant="h6" align="center" gutterBottom>
-                    Basic
-                  </Typography>
-                  {renderQuizzes(level, 'basic', 10)}
-                  <Typography variant="h6" align="center" gutterBottom>
-                    Advanced
-                  </Typography>
-                  {renderQuizzes(level, 'advanced', 6)}
-                </>
-              ) : (
-                renderQuizzes(level, 'basic', 10)
-              )}
-            </AccordionDetails>
-          </StyledAccordion>
+    <Container id={id} sx={{ py: 6 }}>
+      {/* Colored header pill */}
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{
+            position: 'relative',
+            backgroundColor: "#f0f8ff",
+            pt: 10,
+          }}
+        >
+          {title}
+      </Typography>
+      <Paper
+        elevation={2}
+        sx={{
+          display: 'inline-block',
+          px: 3,
+          py: 1,
+          mb: 4,
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
+          borderRadius: 2,
+        }}
+      >
+        <Typography variant="h4">{title}</Typography>
+      </Paper>
+
+      <Grid container spacing={4}>
+        {Object.entries(QUIZ_COUNTS).map(([level, subLevels]) => (
+          <Grid key={level} item xs={12} md={6} sx={{ position: 'relative' }}>
+            <Paper
+              elevation={1}
+              sx={{
+                p: 3,
+                mb: 4,
+                bgcolor: 'rgba(255,255,255,0.85)',
+                borderLeft: `4px solid ${theme.palette.primary.main}`,
+                boxShadow: 1,
+              }}
+            >
+              {/* JLPT header */}
+              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="h6" fontWeight="bold">
+                  JLPT {level.toUpperCase()} Kanji Tests
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  5 minutes
+                </Typography>
+              </Box>
+
+              {/* basic/advanced */}
+              <Box
+                sx={{
+                  maxHeight:'480px',
+                  overflowY: 'auto',
+                  paddingRight: '8px',
+                  '&::-webkit-scrollbar': {
+                    width: '8px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: theme.palette.primary.main,
+                    borderRadius: '4px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  },
+                }}
+              >
+                {Object.entries(subLevels).map(([subLevel, count]) => (
+                  <QuizList
+                    key={`${level}-${subLevel}`}
+                    level={level}
+                    subLevel={subLevel}
+                    count={count}
+                  />
+                ))}
+              </Box>
+            </Paper>
+          </Grid>
         ))}
-      </ContentContainer>
-    </StyledSection>
+      </Grid>
+    </Container>
   );
 };
 

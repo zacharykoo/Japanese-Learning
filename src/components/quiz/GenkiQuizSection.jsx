@@ -1,157 +1,160 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Button, Grid, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  Paper,
+  useTheme,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/system';
-import LearningImage from '../../app-images/learning_animal.jpg';
 
-const StyledSection = styled(Box)(({ theme }) => ({
-  minHeight: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: theme.palette.background.default,
-}));
+const CHAPTERS = [
+  { num: 1, hasKanji: false },
+  { num: 2, hasKanji: false },
+  { num: 3, hasKanji: false },
+  { num: 4, hasKanji: false },
+  { num: 5, hasKanji: true },
+  { num: 6, hasKanji: true },
+  { num: 7, hasKanji: true },
+  { num: 8, hasKanji: true },
+  { num: 9, hasKanji: true },
+  { num: 10, hasKanji: true },
+  { num: 11, hasKanji: true },
+  { num: 12, hasKanji: true },
+];
 
-const ContentContainer = styled(Container)({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  paddingTop: '2rem',
-  opacity: 0,
-  transform: 'translateY(100px)',
-  transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
-  '&.visible': {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-});
+const QuizButtons = ({ chapter, hasKanji }) => (
+  <>
+    {/* Grammar */}
+    <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+      <Button
+        component={Link}
+        to={`/quiz/genki-quiz/${chapter}/Grammar`}
+        variant="text"
+        sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
+      >
+        {`Chapter ${chapter} Grammar Quiz`}
+      </Button>
+      <Button
+        component={Link}
+        to={`/quiz/genki-quiz/${chapter}/Grammar`}
+        variant="contained"
+        size="small"
+      >
+        Start
+      </Button>
+    </Box>
 
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  borderRadius: '12px',
-  margin: '1rem 0',
-  width: '100%',
-}));
+    {/* Vocab */}
+    <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+      <Button
+        component={Link}
+        to={`/quiz/genki-quiz/${chapter}/Vocab`}
+        variant="text"
+        sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
+      >
+        {`Chapter ${chapter} Vocab Quiz`}
+      </Button>
+      <Button
+        component={Link}
+        to={`/quiz/genki-quiz/${chapter}/Vocab`}
+        variant="contained"
+        size="small"
+      >
+        Start
+      </Button>
+    </Box>
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  margin: '8px',
-  padding: '10px 20px',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-  },
-  minWidth: '150px', 
-  textTransform: 'none',
-}));
-
-const GenkiSection = ({ title, id, subtitlePrefix }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById(id);
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, 500);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [id]);
-
-  const genkiChapters = [
-    { chapter: 'Chapter 1', hasKanji: false },
-    { chapter: 'Chapter 2', hasKanji: false },
-    { chapter: 'Chapter 3', hasKanji: false },
-    { chapter: 'Chapter 4', hasKanji: false },
-    { chapter: 'Chapter 5', hasKanji: true },
-    { chapter: 'Chapter 6', hasKanji: true },
-    { chapter: 'Chapter 7', hasKanji: true },
-    { chapter: 'Chapter 8', hasKanji: true },
-    { chapter: 'Chapter 9', hasKanji: true },
-    { chapter: 'Chapter 10', hasKanji: true },
-    { chapter: 'Chapter 11', hasKanji: true },
-    { chapter: 'Chapter 12', hasKanji: true },
-  ];
-
-  const renderQuizzes = (hasKanji, chapterNumber) => (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item>
-        <StyledButton
-          variant="contained"
+    {/* Kanji */}
+    {hasKanji && (
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+        <Button
           component={Link}
-          to={`/quiz/genki-quiz/${chapterNumber}/Grammar`}
+          to={`/quiz/genki-quiz/${chapter}/Kanji`}
+          variant="text"
+          sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
         >
-          Grammar Quiz
-        </StyledButton>
-      </Grid>
-      <Grid item>
-        <StyledButton
-          variant="contained"
+          {`Chapter ${chapter} Kanji Quiz`}
+        </Button>
+        <Button
           component={Link}
-          to={`/quiz/genki-quiz/${chapterNumber}/Vocab`}
+          to={`/quiz/genki-quiz/${chapter}/Kanji`}
+          variant="contained"
+          size="small"
         >
-          Vocab Quiz
-        </StyledButton>
-      </Grid>
-      {hasKanji && (
-        <Grid item>
-          <StyledButton
-            variant="contained"
-            component={Link}
-            to={`/quiz/genki-quiz/${chapterNumber}/Kanji`}
-          >
-            Kanji Quiz
-          </StyledButton>
-        </Grid>
-      )}
-    </Grid>
-  );
+          Start
+        </Button>
+      </Box>
+    )}
+  </>
+);
+
+const GenkiQuizSection = ({ id, title }) => {
+  const theme = useTheme();
 
   return (
-    <StyledSection id={id}>
-      <ContentContainer className={isVisible ? 'visible' : ''}>
-        <Box sx={{ textAlign: 'center', marginBottom: '2rem', position: 'relative' }}>
-          <img
-            src={LearningImage}
-            alt="Quiz"
-            style={{
-              width: '400px',
-              height: 'auto',
-              borderRadius: '8px',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-              marginBottom: '1rem',
-            }}
-          />
-          <Typography variant="h4" align="center" gutterBottom sx={{ color: 'primary.main' }}>
-            {title}
-          </Typography>
-        </Box>
-        {genkiChapters.map(({ chapter, hasKanji }, index) => (
-          <StyledAccordion key={chapter}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h5" sx={{ color: 'text.primary' }}>
-                {chapter}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {renderQuizzes(hasKanji, index + 1)}
-            </AccordionDetails>
-          </StyledAccordion>
+    <Container id={id} sx={{ py: 6 }}>
+      {/* Colored header pill */}
+        <Typography
+          variant="h4"
+          align="center"
+          sx={{
+            position: 'relative',
+            top: 0,
+            backgroundColor: "#f0f8ff",
+            pt: 5,
+          }}
+        >
+          {title}
+      </Typography>
+      <Paper
+        elevation={2}
+        sx={{
+          display: 'inline-block',
+          px: 3,
+          py: 1,
+          mb: 4,
+          bgcolor: 'secondary.main',
+          color: 'secondary.contrastText',
+          borderRadius: 2,
+        }}
+      >
+        <Typography variant="h4">{title}</Typography>
+      </Paper>
+
+      <Grid container spacing={4}>
+        {CHAPTERS.map(({ num, hasKanji }) => (
+          <Grid key={num} item xs={12} md={6} sx={{ position: 'relative' }}>
+            <Paper
+              elevation={1}
+              sx={{
+                p: 3,
+                mb: 4,
+                bgcolor: 'rgba(255,255,255,0.85)',
+                borderLeft: `4px solid ${theme.palette.secondary.main}`,
+                boxShadow: 1,
+              }}
+            >
+              {/* Chapter header */}
+              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="h6" fontWeight="bold">
+                  Chapter {num} Quizzes
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  5 minutes
+                </Typography>
+              </Box>
+
+              {/* Quiz buttons */}
+              <QuizButtons chapter={num} hasKanji={hasKanji} />
+            </Paper>
+          </Grid>
         ))}
-      </ContentContainer>
-    </StyledSection>
+      </Grid>
+    </Container>
   );
 };
 
-export default GenkiSection;
+export default GenkiQuizSection;

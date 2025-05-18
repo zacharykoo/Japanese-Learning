@@ -6,6 +6,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import LanguageIcon from '@mui/icons-material/Language';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import InfoIcon from '@mui/icons-material/Info';
+import PublicIcon from '@mui/icons-material/Public';
 import { Link } from 'react-router-dom';
 import ParticlesComponent from '../particles';
 
@@ -35,6 +37,7 @@ const IconWrapper = styled('div')(({ theme }) => ({
         background: 'linear-gradient(45deg, #74C69D, #38A3A5)',
         borderRadius: '50%',
         padding: theme.spacing(1),
+        color: '#fff',
     },
 }));
 
@@ -42,9 +45,8 @@ const GridContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '80%', // Changed from 100vh to 100%
-    padding: theme.spacing(4), // Optional: Add padding to reduce white space
-    position: 'relative', // For positioning background particles
+    padding: theme.spacing(4),
+    position: 'relative',
 }));
 
 const Menu = () => {
@@ -57,7 +59,7 @@ const Menu = () => {
                         <Link to="/quiz" style={{ textDecoration: 'none' }}>
                             <StyledCard>
                                 <IconWrapper>
-                                    <QuizIcon style={{ color: '#ffffff' }} />
+                                    <QuizIcon />
                                 </IconWrapper>
                                 <Tooltip title="Quiz">
                                     <Typography variant="h6">クイズ</Typography>
@@ -66,46 +68,80 @@ const Menu = () => {
                         </Link>
                     </CardActionArea>
                 </Grid>
+
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
                         <StyledCard>
                             <IconWrapper>
-                                <SchoolIcon style={{ color: '#ffffff' }} />
+                                <SchoolIcon />
                             </IconWrapper>
                             <Typography variant="h6">Program</Typography>
                         </StyledCard>
                     </CardActionArea>
                 </Grid>
+
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
                         <StyledCard>
                             <IconWrapper>
-                                <ImportContactsIcon style={{ color: '#ffffff' }} />
+                                <ImportContactsIcon />
                             </IconWrapper>
                             <Typography variant="h6">Useful resources</Typography>
                         </StyledCard>
                     </CardActionArea>
                 </Grid>
+
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
-                        <Link to="https://sites.google.com/view/hinakosensei/home" style={{ textDecoration: 'none' }}>
+                        <Link to="https://sites.google.com/view/hinakosensei/home" target="_blank" style={{ textDecoration: 'none' }}>
                             <StyledCard>
                                 <IconWrapper>
-                                    <LanguageIcon style={{ color: '#ffffff' }} />
+                                    <LanguageIcon />
                                 </IconWrapper>
-                                <Typography variant="h6">Professor Ishikawa's website</Typography>
+                                <Typography variant="h6">Professor Ishikawa</Typography>
                             </StyledCard>
                         </Link>
                     </CardActionArea>
                 </Grid>
+
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
                         <Link to="/xiaoJieYang" style={{ textDecoration: 'none' }}>
                             <StyledCard>
                                 <IconWrapper>
-                                    <AccountCircleIcon style={{ color: '#ffffff' }} />
+                                    <AccountCircleIcon />
                                 </IconWrapper>
                                 <Typography variant="h6">Professor Yang</Typography>
+                            </StyledCard>
+                        </Link>
+                    </CardActionArea>
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
+                    <CardActionArea>
+                        <Link
+                            to="https://sites.google.com/view/uofcvrproject/%E3%81%93%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6?authuser=0"
+                            target="_blank"
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <StyledCard>
+                                <IconWrapper>
+                                    <InfoIcon />
+                                </IconWrapper>
+                                <Typography variant="h6">このサイトについて</Typography>
+                            </StyledCard>
+                        </Link>
+                    </CardActionArea>
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
+                    <CardActionArea>
+                        <Link to="https://padlet.com/jpnsuofc/uofc-japanese-hub_w2025_-padlet-ov5x4d7suwupsz5v" target="_blank" style={{ textDecoration: 'none' }}>
+                            <StyledCard>
+                                <IconWrapper>
+                                    <PublicIcon />
+                                </IconWrapper>
+                                <Typography variant="h6">Padlet Board</Typography>
                             </StyledCard>
                         </Link>
                     </CardActionArea>

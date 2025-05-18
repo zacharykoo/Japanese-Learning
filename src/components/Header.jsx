@@ -17,7 +17,7 @@ const Header = () => {
           src={UofCLogo}
         />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#333', fontWeight: 'bold' }}>
-          Japanese Learning Website
+          University of Calgary Japanese Hub
         </Typography>
         <Box>
           <Button color="inherit" component={Link} to="/" sx={{ color: '#333' }}>
