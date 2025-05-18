@@ -71,12 +71,14 @@ const Menu = () => {
 
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
-                        <StyledCard>
-                            <IconWrapper>
-                                <SchoolIcon />
-                            </IconWrapper>
-                            <Typography variant="h6">Program</Typography>
-                        </StyledCard>
+                        <Link to="/about" style={{ textDecoration: 'none' }}>
+                            <StyledCard>
+                                <IconWrapper>
+                                    <SchoolIcon />
+                                </IconWrapper>
+                                <Typography variant="h6">About Us</Typography>
+                            </StyledCard>
+                        </Link>
                     </CardActionArea>
                 </Grid>
 

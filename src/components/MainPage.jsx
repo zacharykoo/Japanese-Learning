@@ -33,7 +33,7 @@ function MainPage() {
     <>
       <Header />
       <PageContainer>
-        <Title>U of C Japanese Hub</Title>
+        <Title>U of C Japanese Hub: Student-Made Quizzes</Title>
         <Menu />
       </PageContainer>
       <Footer>
