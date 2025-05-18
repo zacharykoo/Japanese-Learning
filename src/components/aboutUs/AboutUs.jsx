@@ -232,7 +232,7 @@ const AboutUs = () => {
         {/* Credits Section */}
         <Paper elevation={2} sx={{ p: 4, borderRadius: 3 }}>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-            Project Credits / プロジェクトクレジット
+            Credits / クレジット
           </Typography>
           <Divider sx={{ mb: 3 }} />
           
@@ -242,7 +242,7 @@ const AboutUs = () => {
                 サイトを作った人：
               </Typography>
               <Typography variant="body1" paragraph>
-                プロジェクトリーダーの先生、ウェブサイトクリエーター ザッカリー
+                シャープ先生、石川先生、 ザッカリー
               </Typography>
               <Typography variant="body1">
                 全てのクイズは学生が作成しました。
@@ -253,7 +253,7 @@ const AboutUs = () => {
                 Created by:
               </Typography>
               <Typography variant="body1" paragraph>
-                Project lead professor and website creator Zachary
+                Akiko Sharp Sensei, Ishikawa Hinako Sensei and website creator Zachary
               </Typography>
               <Typography variant="body1">
                 All quizzes were created by students.
