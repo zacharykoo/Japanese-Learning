@@ -19,7 +19,7 @@ const Quiz = () => {
   }
 
   return (
-    <Box>
+    <Box pt={4}>
       <Typography variant="h4" align="center" gutterBottom>
         {`${quizType} Quiz ${number}`}
       </Typography>

@@ -11,13 +11,13 @@ import {
 import { Link } from 'react-router-dom';
 
 const CHAPTERS = [
-  { num: 1, hasKanji: false },
+  { num: 1, hasKanji: true },
   { num: 2, hasKanji: false },
-  { num: 3, hasKanji: false },
-  { num: 4, hasKanji: false },
+  { num: 3, hasKanji: true },
+  { num: 4, hasKanji: true },
   { num: 5, hasKanji: true },
   { num: 6, hasKanji: true },
-  { num: 7, hasKanji: true },
+  { num: 7, hasKanji: false },
   { num: 8, hasKanji: true },
   { num: 9, hasKanji: true },
   { num: 10, hasKanji: true },
