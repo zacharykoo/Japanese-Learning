@@ -4,11 +4,14 @@ import {
   Box, Button, Radio, RadioGroup, FormControlLabel, 
   Typography, Paper, Container, LinearProgress, 
   Chip, Divider, useTheme, Dialog,
-  DialogActions, DialogContent, DialogContentText, DialogTitle
+  DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Accordion, AccordionSummary, AccordionDetails
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CloseIcon from '@mui/icons-material/Close';
 
 function ImportQuestion({ fileName }) {
     const theme = useTheme();
@@ -20,6 +23,7 @@ function ImportQuestion({ fileName }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showBackConfirm, setShowBackConfirm] = useState(false);
     const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
+    const [showReview, setShowReview] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -434,22 +438,182 @@ function ImportQuestion({ fileName }) {
                          score >= data.length * 0.5 ? 'Good effort! 😊' : 
                          'Keep practicing! 💪'}
                     </Typography>
-                    <Button
-                        onClick={handleGoBack}
-                        variant="outlined"
-                        size="large"
-                        sx={{ 
-                            mt: 2,
-                            color: '#6e8efb',
-                            borderColor: '#6e8efb',
-                            '&:hover': {
-                                backgroundColor: 'rgba(110, 142, 251, 0.1)',
-                                borderColor: '#6e8efb'
-                            }
-                        }}
-                    >
-                        Back to Quiz Section
-                    </Button>
+                    <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Button
+                            onClick={() => setShowReview(!showReview)}
+                            variant="contained"
+                            size="large"
+                            sx={{ 
+                                background: 'linear-gradient(135deg, #6e8efb 0%, #a777e3 100%)',
+                                '&:hover': {
+                                    opacity: 0.9
+                                }
+                            }}
+                        >
+                            {showReview ? 'Hide Review' : 'Review Answers'}
+                        </Button>
+                        <Button
+                            onClick={handleGoBack}
+                            variant="outlined"
+                            size="large"
+                            sx={{ 
+                                color: '#6e8efb',
+                                borderColor: '#6e8efb',
+                                '&:hover': {
+                                    backgroundColor: 'rgba(110, 142, 251, 0.1)',
+                                    borderColor: '#6e8efb'
+                                }
+                            }}
+                        >
+                            Back to Quiz Section
+                        </Button>
+                    </Box>
+                </Paper>
+            )}
+
+            {/* Review Section */}
+            {isSubmitted && showReview && (
+                <Paper elevation={0} sx={{ 
+                    p: 4,
+                    borderRadius: 4,
+                    background: 'linear-gradient(to bottom, #ffffff, #f8f9ff)',
+                    boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)',
+                    border: '1px solid rgba(110, 142, 251, 0.3)',
+                    mt: 3
+                }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                        <Typography variant="h5" sx={{ color: '#3a416f', fontWeight: 600 }}>
+                            Quiz Review
+                        </Typography>
+                        <Button
+                            onClick={() => setShowReview(false)}
+                            startIcon={<CloseIcon />}
+                            sx={{ color: '#6e8efb' }}
+                        >
+                            Close
+                        </Button>
+                    </Box>
+                    
+                    {data.map((question, index) => {
+                        const userAnswer = userAnswers[index];
+                        const isCorrect = userAnswer === question.Answer;
+                        
+                        return (
+                            <Accordion key={index} sx={{ 
+                                mb: 2,
+                                '&:before': { display: 'none' },
+                                border: `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`,
+                                borderRadius: 2,
+                                overflow: 'hidden'
+                            }}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    sx={{
+                                        backgroundColor: isCorrect ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)',
+                                        '&:hover': {
+                                            backgroundColor: isCorrect ? 'rgba(76, 175, 80, 0.15)' : 'rgba(244, 67, 54, 0.15)'
+                                        }
+                                    }}
+                                >
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                                        <Chip 
+                                            label={`Q${index + 1}`}
+                                            sx={{ 
+                                                backgroundColor: isCorrect ? '#4caf50' : '#f44336',
+                                                color: 'white',
+                                                fontWeight: 600
+                                            }}
+                                        />
+                                        <Typography variant="body1" sx={{ 
+                                            fontWeight: 500,
+                                            color: '#3a416f',
+                                            flex: 1
+                                        }}>
+                                            {question.Question.length > 60 ? 
+                                                `${question.Question.substring(0, 60)}...` : 
+                                                question.Question
+                                            }
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                            {isCorrect ? (
+                                                <CheckCircleIcon sx={{ color: '#4caf50', fontSize: '1.5rem' }} />
+                                            ) : (
+                                                <CloseIcon sx={{ color: '#f44336', fontSize: '1.5rem' }} />
+                                            )}
+                                        </Box>
+                                    </Box>
+                                </AccordionSummary>
+                                <AccordionDetails sx={{ backgroundColor: 'white' }}>
+                                    <Box sx={{ mb: 2 }}>
+                                        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, color: '#3a416f' }}>
+                                            Question {index + 1}
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ mb: 2 }}>
+                                            {renderTextWithUnderlines(question.Question)}
+                                        </Typography>
+                                        
+                                        {question.Image && (
+                                            <Box sx={{ 
+                                                textAlign: 'center', 
+                                                mb: 2,
+                                                borderRadius: 2,
+                                                overflow: 'hidden',
+                                                boxShadow: '0 4px 20px rgba(110, 142, 251, 0.2)',
+                                                border: '1px solid rgba(110, 142, 251, 0.3)'
+                                            }}>
+                                                <img 
+                                                    src={question.Image} 
+                                                    alt={`Question ${index + 1}`} 
+                                                    style={{ 
+                                                        maxWidth: '100%', 
+                                                        maxHeight: '200px', 
+                                                        width: 'auto', 
+                                                        height: 'auto',
+                                                        display: 'block',
+                                                        margin: '0 auto'
+                                                    }} 
+                                                />
+                                            </Box>
+                                        )}
+                                    </Box>
+                                    
+                                    <Box sx={{ mb: 2 }}>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#3a416f' }}>
+                                            Your Answer:
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ 
+                                            p: 1.5,
+                                            borderRadius: 1,
+                                            backgroundColor: isCorrect ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)',
+                                            border: `1px solid ${isCorrect ? '#4caf50' : '#f44336'}`,
+                                            color: isCorrect ? '#2e7d32' : '#d32f2f',
+                                            fontWeight: 500
+                                        }}>
+                                            {userAnswer || 'No answer provided'}
+                                        </Typography>
+                                    </Box>
+                                    
+                                    <Box>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, color: '#3a416f' }}>
+                                            Correct Answer:
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ 
+                                            p: 1.5,
+                                            borderRadius: 1,
+                                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                                            border: '1px solid #4caf50',
+                                            color: '#2e7d32',
+                                            fontWeight: 500
+                                        }}>
+                                            {question.Answer}
+                                        </Typography>
+                                    </Box>
+                                    
+                                    
+                                </AccordionDetails>
+                            </Accordion>
+                        );
+                    })}
                 </Paper>
             )}
         </Container>

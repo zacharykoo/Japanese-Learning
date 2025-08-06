@@ -66,7 +66,12 @@ const QuizTable = () => {
   const handleCardClick = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = 80; // Approximate header height
+      const elementPosition = section.offsetTop - headerHeight;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -86,6 +91,14 @@ const QuizTable = () => {
           </Typography>
           <Grid container spacing={5} justifyContent="center">
             <Grid item xs={12} sm={6} md={4}>
+              <CardActionArea onClick={() => handleCardClick('genki-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+                <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                  <img src={GenkiIcon} alt="Genki Icon" style={{ width: '60px', marginBottom: '15px' }} />
+                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>Genki Quiz - Student Made Quizzes</Typography>
+                </StyledCard>
+              </CardActionArea>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
               <CardActionArea onClick={() => handleCardClick('kanji-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
                 <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
                   <img src={KanjiIcon} alt="Kanji Icon" style={{ width: '60px', marginBottom: '15px' }} />
@@ -93,20 +106,12 @@ const QuizTable = () => {
                 </StyledCard>
               </CardActionArea>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardActionArea onClick={() => handleCardClick('genki-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
-                <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
-                  <img src={GenkiIcon} alt="Genki Icon" style={{ width: '60px', marginBottom: '15px' }} />
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>Genki Quizzes</Typography>
-                </StyledCard>
-              </CardActionArea>
-            </Grid>
           </Grid>
         </ContentContainer>
       </FullPageContainer>
       <Box sx={{ marginTop: '20px' }}>
+        <GenkiSection id="genki-quizzes" title="Genki Quiz - Student Made Quizzes" />
         <KanjiSection id="kanji-quizzes" title="Kanji Quizzes" />
-        <GenkiSection id="genki-quizzes" title="Genki Quizzes" />
       </Box>
     </>
   );

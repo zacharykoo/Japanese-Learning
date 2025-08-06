@@ -6,6 +6,7 @@ import MainPage from './components/MainPage';
 import QuizRoutes from './routes/QuizRoutes';
 import Yang from './components/yang/Yang';
 import AboutUs from './components/aboutUs/AboutUs';
+import UsefulResources from './components/UsefulResources';
 
 const theme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/quiz/*" element={<QuizRoutes />} />
           <Route path="/xiaoJieYang" element={<Yang />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/resources" element={<UsefulResources />} />
         </Routes>
       </Router>
     </ThemeProvider>

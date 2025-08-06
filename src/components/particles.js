@@ -21,7 +21,7 @@ const ParticlesComponent = (props) => {
     () => ({
       background: {
         color: {
-          value: "#F0F8FF", // Light background color (AliceBlue)
+          value: "transparent", // Changed to transparent to not interfere with hero section
         },
       },
       fpsLimit: 60,
@@ -67,7 +67,15 @@ const ParticlesComponent = (props) => {
         id={props.id}
         init={particlesLoaded}
         options={options}
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        style={{ 
+          position: 'absolute', 
+          top: 0, 
+          left: 0, 
+          width: '100%', 
+          height: '100%',
+          pointerEvents: 'none', // Ensure particles don't interfere with interactions
+          zIndex: 1 // Lower z-index so it doesn't cover other content
+        }}
       />
     )
   );

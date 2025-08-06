@@ -4,11 +4,8 @@ import { styled } from '@mui/system';
 import QuizIcon from '@mui/icons-material/Quiz';
 import SchoolIcon from '@mui/icons-material/School';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
-import LanguageIcon from '@mui/icons-material/Language';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
-import PublicIcon from '@mui/icons-material/Public';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ParticlesComponent from '../particles';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -47,9 +44,34 @@ const GridContainer = styled('div')(({ theme }) => ({
     alignItems: 'center',
     padding: theme.spacing(4),
     position: 'relative',
+    overflow: 'hidden', // Ensure particles don't overflow
+    minHeight: '400px', // Give some height for particles to work in
 }));
 
 const Menu = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleAboutUsClick = () => {
+        if (location.pathname === '/') {
+            // If we're already on the home page, scroll to About Us section
+            const aboutSection = document.getElementById('about-us-section');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            // If we're on a different page, navigate to home and then scroll
+            navigate('/');
+            // Use setTimeout to ensure navigation completes before scrolling
+            setTimeout(() => {
+                const aboutSection = document.getElementById('about-us-section');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+    };
+
     return (
         <GridContainer>
             <ParticlesComponent className="particles" />
@@ -70,54 +92,30 @@ const Menu = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
-                    <CardActionArea>
-                        <Link to="/about" style={{ textDecoration: 'none' }}>
-                            <StyledCard>
-                                <IconWrapper>
-                                    <SchoolIcon />
-                                </IconWrapper>
-                                <Typography variant="h6">About Us</Typography>
-                            </StyledCard>
-                        </Link>
-                    </CardActionArea>
-                </Grid>
-
-                <Grid item xs={12} sm={4}>
-                    <CardActionArea>
+                    <CardActionArea onClick={handleAboutUsClick}>
                         <StyledCard>
                             <IconWrapper>
-                                <ImportContactsIcon />
+                                <SchoolIcon />
                             </IconWrapper>
-                            <Typography variant="h6">Useful resources</Typography>
+                            <Typography variant="h6">About Us</Typography>
                         </StyledCard>
                     </CardActionArea>
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
-                        <Link to="https://sites.google.com/view/hinakosensei/home" target="_blank" style={{ textDecoration: 'none' }}>
+                        <Link to="/resources" style={{ textDecoration: 'none' }}>
                             <StyledCard>
                                 <IconWrapper>
-                                    <LanguageIcon />
+                                    <ImportContactsIcon />
                                 </IconWrapper>
-                                <Typography variant="h6">Professor Ishikawa</Typography>
+                                <Typography variant="h6">Useful Resources</Typography>
                             </StyledCard>
                         </Link>
                     </CardActionArea>
                 </Grid>
 
-                <Grid item xs={12} sm={4}>
-                    <CardActionArea>
-                        <Link to="/xiaoJieYang" style={{ textDecoration: 'none' }}>
-                            <StyledCard>
-                                <IconWrapper>
-                                    <AccountCircleIcon />
-                                </IconWrapper>
-                                <Typography variant="h6">Professor Yang</Typography>
-                            </StyledCard>
-                        </Link>
-                    </CardActionArea>
-                </Grid>
+
 
                 <Grid item xs={12} sm={4}>
                     <CardActionArea>
@@ -136,18 +134,7 @@ const Menu = () => {
                     </CardActionArea>
                 </Grid>
 
-                <Grid item xs={12} sm={4}>
-                    <CardActionArea>
-                        <Link to="https://padlet.com/jpnsuofc/uofc-japanese-hub_w2025_-padlet-ov5x4d7suwupsz5v" target="_blank" style={{ textDecoration: 'none' }}>
-                            <StyledCard>
-                                <IconWrapper>
-                                    <PublicIcon />
-                                </IconWrapper>
-                                <Typography variant="h6">Padlet Board</Typography>
-                            </StyledCard>
-                        </Link>
-                    </CardActionArea>
-                </Grid>
+
             </Grid>
         </GridContainer>
     );

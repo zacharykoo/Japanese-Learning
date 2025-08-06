@@ -96,33 +96,41 @@ const GenkiQuizSection = ({ id, title }) => {
 
   return (
     <Container id={id} sx={{ py: 6 }}>
-      {/* Colored header pill */}
+      {/* Section title */}
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
         <Typography
-          variant="h4"
-          align="center"
+          variant="h3"
           sx={{
+            fontWeight: 700,
+            color: 'secondary.main',
+            textShadow: '0 2px 4px rgba(0,0,0,0.1)',
             position: 'relative',
-            top: 0,
-            backgroundColor: "#f0f8ff",
-            pt: 5,
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '-8px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '60px',
+              height: '3px',
+              backgroundColor: 'secondary.main',
+              borderRadius: '2px',
+            }
           }}
         >
           {title}
-      </Typography>
-      <Paper
-        elevation={2}
-        sx={{
-          display: 'inline-block',
-          px: 3,
-          py: 1,
-          mb: 4,
-          bgcolor: 'secondary.main',
-          color: 'secondary.contrastText',
-          borderRadius: 2,
-        }}
-      >
-        <Typography variant="h4">{title}</Typography>
-      </Paper>
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+            mt: 2,
+            fontStyle: 'italic'
+          }}
+        >
+          Practice grammar, vocabulary, and kanji from Genki textbooks
+        </Typography>
+      </Box>
 
       <Grid container spacing={4}>
         {CHAPTERS.map(({ num, hasKanji }) => (
