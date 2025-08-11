@@ -11,7 +11,7 @@ import {
   Divider,
   Chip
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 import SchoolIcon from '@mui/icons-material/School';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -81,6 +81,18 @@ const Footer = styled(Box)(({ theme }) => ({
 }));
 
 const UsefulResources = () => {
+  const navigate = useNavigate();
+
+  const handleAboutUsClick = () => {
+    navigate('/');
+    setTimeout(() => {
+      const aboutSection = document.getElementById('about-us-section');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <>
       <Header />
@@ -355,19 +367,18 @@ const UsefulResources = () => {
                    }}
                  />
                </Link>
-               <Link to="/about" style={{ textDecoration: 'none' }}>
-                 <Chip 
-                   label="About Us" 
-                   clickable 
-                   sx={{ 
-                     backgroundColor: '#38A3A5', 
-                     color: 'white',
-                     '&:hover': {
-                       backgroundColor: '#2d8284'
-                     }
-                   }}
-                 />
-               </Link>
+               <Chip 
+                 label="About Us" 
+                 clickable 
+                 onClick={handleAboutUsClick}
+                 sx={{ 
+                   backgroundColor: '#38A3A5', 
+                   color: 'white',
+                   '&:hover': {
+                     backgroundColor: '#2d8284'
+                   }
+                 }}
+               />
                <Link to="/" style={{ textDecoration: 'none' }}>
                  <Chip 
                    label="Home" 

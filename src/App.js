@@ -8,6 +8,7 @@ import Yang from './components/yang/Yang';
 import AboutUs from './components/aboutUs/AboutUs';
 import UsefulResources from './components/UsefulResources';
 import KanjiQuizPage from './components/quiz/KanjiQuizPage';
+import ScrollToTop from './components/ScrollToTop';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router basename="/Japanese-Learning">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/quiz/*" element={<QuizRoutes />} />
