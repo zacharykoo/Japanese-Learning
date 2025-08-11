@@ -7,6 +7,7 @@ import QuizRoutes from './routes/QuizRoutes';
 import Yang from './components/yang/Yang';
 import AboutUs from './components/aboutUs/AboutUs';
 import UsefulResources from './components/UsefulResources';
+import KanjiQuizPage from './components/quiz/KanjiQuizPage';
 
 const theme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/quiz/*" element={<QuizRoutes />} />
+          <Route path="/kanji-quiz" element={<KanjiQuizPage />} />
           <Route path="/xiaoJieYang" element={<Yang />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/resources" element={<UsefulResources />} />

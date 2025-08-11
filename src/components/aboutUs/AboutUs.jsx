@@ -9,6 +9,7 @@ import {
   Link as MuiLink,
   Divider
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import SchoolIcon from '@mui/icons-material/School';
 import GroupIcon from '@mui/icons-material/Group';
 import TranslateIcon from '@mui/icons-material/Translate';
@@ -19,13 +20,18 @@ import { styled } from '@mui/system';
 
 const AboutSection = styled(Box)(({ theme }) => ({
   backgroundColor: '#f9f9f9',
-  padding: theme.spacing(6, 0),
-  minHeight: '100vh',
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
+  padding: theme.spacing(12, 0),
+  position: 'relative', // Needed for z-index context
 }));
+
+const ParticlesContainer = styled(Box)({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  zIndex: 0,
+});
 
 const AboutTitle = styled(Typography)(({ theme }) => ({
   fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
@@ -88,11 +94,12 @@ const AboutUs = () => {
       jpDescription: "カルガリー大学の学生が作成した実用的なクイズ"
     },
     {
-      icon: <TranslateIcon fontSize="large" />,
-      title: "Vocabulary & Kanji Focus",
-      jpTitle: "語彙と漢字に特化",
-      description: "Enhance your Japanese knowledge step by step.",
-      jpDescription: "語彙や漢字を段階的に学べます"
+      icon: <SchoolIcon fontSize="large" />,
+      title: "Kanji Quizzes",
+      jpTitle: "漢字クイズ",
+      description: "Test your kanji knowledge with our comprehensive quizzes.",
+      jpDescription: "包括的なクイズで漢字の知識を試しましょう",
+      link: "/kanji-quiz"
     },
     {
       icon: <GroupIcon fontSize="large" />,
@@ -112,7 +119,9 @@ const AboutUs = () => {
 
   return (
     <AboutSection>
-      <ParticlesComponent className="particles" />
+      <ParticlesContainer>
+        <ParticlesComponent className="particles" />
+      </ParticlesContainer>
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
         {/* Header Section */}
         <Box sx={{ textAlign: 'center', mb: 8 }}>
@@ -127,8 +136,8 @@ const AboutUs = () => {
 
         {/* Features Grid */}
         <Grid container spacing={3} sx={{ mb: 8 }}>
-          {featureItems.map((item, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+          {featureItems.map((item, index) => {
+            const card = (
               <FeatureCard>
                 <Box sx={{ textAlign: 'center' }}>
                   <FeatureIcon>
@@ -149,12 +158,65 @@ const AboutUs = () => {
                   </Typography>
                 </Box>
               </FeatureCard>
-            </Grid>
-          ))}
+            );
+
+            return (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                {item.link ? <Link to={item.link} style={{ textDecoration: 'none' }}>{card}</Link> : card}
+              </Grid>
+            );
+          })}
         </Grid>
 
-        {/* Mission and Credits in a 2-column layout */}
-        <Grid container spacing={4}>
+        {/* About This Website, Mission, and Credits Section */}
+        <Grid container spacing={10} sx={{ mb: 4 }}>
+          <Grid item xs={12}>
+            <ContentCard>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} lg={6}>
+                        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#2b2b2b', mb: 3 }}>
+                        About This Website
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        This website was created to enrich the learning experience in the Japanese Language Program.
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        As part of an educational initiative that combines in-person instruction with online learning, the site aims to support student-centered learning, enhance motivation, and foster a broader learning community.
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        A key feature of this website is the showcase of student-created learning materials. This initiative encourages students to engage in the development of educational resources, providing valuable opportunities to cultivate creativity, collaboration, and leadership. These materials also serve as meaningful resources for future learners—please feel free to use them to support your own Japanese studies. In the future, we also plan to feature outstanding student projects submitted as course assignments.
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        The site also offers self-study tips and materials tailored to various learning styles and goals, providing flexible support for independent learning.
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                        We hope this website will serve as a space to support students’ learning and share their achievements with a wider audience.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} lg={6}>
+                        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#2b2b2b', mb: 3 }}>
+                        このサイトについて
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        このウェブサイトは、日本語プログラムにおける学びをより豊かにするために作られました。
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        対面授業とオンライン学習を組み合わせた教育実践の一環として、学生の主体的な学びを支え、学習意欲を高め、学びのコミュニティを広げることを目的としています。
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        特にこのサイトでは、学生が制作した教材を紹介しています。これは、学生自身が教材開発に参加しながら学ぶことを目指した取り組みで、創造力・協働性・リーダーシップを育む機会にもなっています。制作された教材は、これから学ぶ他の学生にも役立つ貴重なリソースとなっていますので、ぜひ、日本語学習に役立ててください。さらに、今後は、学生が課題で作成した優秀作品も掲載する予定です。
+                        </Typography>
+                        <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
+                        このウェブサイトには、自主学習を支えるヒントや教材も掲載して、学習スタイルや目的に応じて活用できる内容を提供しています。
+                        </Typography>
+                        <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                        学生の学びを支援し、その成果を広く共有する場として、このサイトを活用していただければ幸いです。
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </ContentCard>
+          </Grid>
+
           {/* Mission Section */}
           <Grid item xs={12} lg={6}>
             <ContentCard>
@@ -205,30 +267,6 @@ const AboutUs = () => {
               </Grid>
               
               <Grid container spacing={2} sx={{ mt: 3 }}>
-                <Grid item xs={12} sm={6}>
-                  <MuiLink 
-                    href="https://sites.google.com/view/uofcvrproject/%E3%81%93%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6?authuser=0" 
-                    target="_blank" 
-                    rel="noopener"
-                    underline="hover"
-                    sx={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      p: 1.5,
-                      borderRadius: 1,
-                      bgcolor: theme.palette.grey[100],
-                      color: theme.palette.primary.main,
-                      textDecoration: 'none',
-                      '&:hover': {
-                        bgcolor: theme.palette.action.hover
-                      }
-                    }}
-                  >
-                    <Typography variant="body1">
-                      詳細を見る（Google Sites）
-                    </Typography>
-                  </MuiLink>
-                </Grid>
                 <Grid item xs={12} sm={6}>
                   <MuiLink 
                     href="https://padlet.com/jpnsuofc/uofc-japanese-hub_w2025_-padlet-ov5x4d7suwupsz5v" 

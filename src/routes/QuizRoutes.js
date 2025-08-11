@@ -7,7 +7,7 @@ const QuizRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<QuizTable />} />
-      <Route path="kanji-quiz/:level/:subLevel/:number" element={<Quiz />} />
+      <Route path="kanji/:level/:subLevel/:number" element={<Quiz />} />
       <Route path="genki-quiz/:level/:number" element={<Quiz />} />
     </Routes>
   );

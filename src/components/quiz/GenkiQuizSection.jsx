@@ -68,7 +68,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
     </Box>
 
     {/* Kanji */}
-    {hasKanji && (
+    {hasKanji ? (
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <Button
           component={Link}
@@ -87,6 +87,8 @@ const QuizButtons = ({ chapter, hasKanji }) => (
           Start
         </Button>
       </Box>
+    ) : (
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1} sx={{ height: '36px' }} />
     )}
   </>
 );
@@ -143,6 +145,7 @@ const GenkiQuizSection = ({ id, title }) => {
                 bgcolor: 'rgba(255,255,255,0.85)',
                 borderLeft: `4px solid ${theme.palette.secondary.main}`,
                 boxShadow: 1,
+                minHeight: '220px',
               }}
             >
               {/* Chapter header */}

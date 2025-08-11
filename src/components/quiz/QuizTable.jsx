@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Typography, Card, CardActionArea, Grid } from '@mui/material';
 import { styled } from '@mui/system';
-import KanjiSection from './KanjiQuizSection';
 import GenkiSection from './GenkiQuizSection';
 import ParticlesComponent from '../particles';
 import Header from '../Header';
@@ -94,15 +93,7 @@ const QuizTable = () => {
               <CardActionArea onClick={() => handleCardClick('genki-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
                 <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
                   <img src={GenkiIcon} alt="Genki Icon" style={{ width: '60px', marginBottom: '15px' }} />
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>Genki Quiz - Student Made Quizzes</Typography>
-                </StyledCard>
-              </CardActionArea>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardActionArea onClick={() => handleCardClick('kanji-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
-                <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
-                  <img src={KanjiIcon} alt="Kanji Icon" style={{ width: '60px', marginBottom: '15px' }} />
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#2e7d32' }}>Kanji Quizzes</Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>Student - Created Content</Typography>
                 </StyledCard>
               </CardActionArea>
             </Grid>
@@ -110,8 +101,7 @@ const QuizTable = () => {
         </ContentContainer>
       </FullPageContainer>
       <Box sx={{ marginTop: '20px' }}>
-        <GenkiSection id="genki-quizzes" title="Genki Quiz - Student Made Quizzes" />
-        <KanjiSection id="kanji-quizzes" title="Kanji Quizzes" />
+        <GenkiSection id="genki-quizzes" title="Student - Created Content" />
       </Box>
     </>
   );

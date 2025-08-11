@@ -17,6 +17,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.primary,
     height: 180,
+    minWidth: 280,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     boxShadow: '0 6px 15px rgba(0, 0, 0, 0.1)',
     borderRadius: '16px',
@@ -88,17 +89,6 @@ const Menu = () => {
                                 </Tooltip>
                             </StyledCard>
                         </Link>
-                    </CardActionArea>
-                </Grid>
-
-                <Grid item xs={12} sm={4}>
-                    <CardActionArea onClick={handleAboutUsClick}>
-                        <StyledCard>
-                            <IconWrapper>
-                                <SchoolIcon />
-                            </IconWrapper>
-                            <Typography variant="h6">About Us</Typography>
-                        </StyledCard>
                     </CardActionArea>
                 </Grid>
 

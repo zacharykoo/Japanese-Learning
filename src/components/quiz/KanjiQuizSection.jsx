@@ -25,7 +25,7 @@ const QuizList = ({ level, subLevel, count }) => (
     </Typography>
     {Array.from({ length: count }).map((_, i) => {
       const quizNumber = i + 1;
-      const quizPath = `/quiz/kanji-quiz/${level}/${subLevel}/${quizNumber}`;
+      const quizPath = `/quiz/kanji/${level}/${subLevel}/${quizNumber}`;
       return (
         <Box
           key={`${level}-${subLevel}-${quizNumber}`}

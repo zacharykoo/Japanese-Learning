@@ -5,7 +5,7 @@ import ImportQuestion from '../ImportQuestion';
 
 const Quiz = () => {
   const { number, level, subLevel } = useParams();
-  const quizType = window.location.pathname.includes('kanji') ? 'Kanji' : 'Genki';
+  const quizType = window.location.pathname.includes('/quiz/kanji') ? 'Kanji' : 'Genki';
 
   let fileName = '';
   if (quizType === 'Kanji') {
