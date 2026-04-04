@@ -128,7 +128,7 @@ const UsefulResources = () => {
                     Dr. Yang was a dedicated professor who taught Japanese at the University of Calgary for over 30 years. He specialized in classical Japanese literature and received the Order of the Rising Sun Award from Japan in 2016.
                   </Typography>
                   <MuiLink 
-                    href="/Japanese-Learning/xiaoJieYang" 
+                    href="/xiaoJieYang" 
                      sx={{ 
                        textDecoration: 'none',
                        color: '#1f883d',
