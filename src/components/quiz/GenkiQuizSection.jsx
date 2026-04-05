@@ -31,7 +31,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
     <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
       <Button
         component={Link}
-        to={`/quiz/genki-quiz/${chapter}/Grammar`}
+        to={`/quiz/genki/${chapter}/Grammar`}
         variant="text"
         sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
       >
@@ -39,7 +39,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
       </Button>
       <Button
         component={Link}
-        to={`/quiz/genki-quiz/${chapter}/Grammar`}
+        to={`/quiz/genki/${chapter}/Grammar`}
         variant="contained"
         size="small"
       >
@@ -51,7 +51,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
     <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
       <Button
         component={Link}
-        to={`/quiz/genki-quiz/${chapter}/Vocab`}
+        to={`/quiz/genki/${chapter}/Vocab`}
         variant="text"
         sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
       >
@@ -59,7 +59,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
       </Button>
       <Button
         component={Link}
-        to={`/quiz/genki-quiz/${chapter}/Vocab`}
+        to={`/quiz/genki/${chapter}/Vocab`}
         variant="contained"
         size="small"
       >
@@ -72,7 +72,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <Button
           component={Link}
-          to={`/quiz/genki-quiz/${chapter}/Kanji`}
+          to={`/quiz/genki/${chapter}/Kanji`}
           variant="text"
           sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
         >
@@ -80,7 +80,7 @@ const QuizButtons = ({ chapter, hasKanji }) => (
         </Button>
         <Button
           component={Link}
-          to={`/quiz/genki-quiz/${chapter}/Kanji`}
+          to={`/quiz/genki/${chapter}/Kanji`}
           variant="contained"
           size="small"
         >

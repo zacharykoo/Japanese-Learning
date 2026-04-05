@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import ImportQuestion from '../ImportQuestion';
+import { trackEvent } from '../../analytics';
 
 const Quiz = () => {
-  const { number, level, subLevel } = useParams();
-  const quizType = window.location.pathname.includes('/quiz/kanji') ? 'Kanji' : 'Genki';
+  const { number, level, subLevel, type } = useParams();
+
+  const sourceType = type; // "genki" or "kanji"
+  const sectionLabel = sourceType === 'kanji' ? 'Kanji' : 'Genki';
 
   let fileName = '';
-  if (quizType === 'Kanji') {
+  if (sourceType === 'kanji') {
     if (subLevel === 'advanced') {
       fileName = `${level}KanjiAdvancedQuiz${number}.csv`;
     } else {
@@ -18,12 +21,28 @@ const Quiz = () => {
     fileName = `${level}GenkiQuiz${number}.csv`;
   }
 
+  useEffect(() => {
+    trackEvent('quiz_view', {
+      source_type: sourceType,
+      quiz_identifier: number,
+      level: level || '',
+      sub_level: subLevel || '',
+      file_name: fileName,
+    });
+  }, [sourceType, number, level, subLevel, fileName]);
+
   return (
     <Box pt={4}>
       <Typography variant="h4" align="center" gutterBottom>
-        {`${quizType} Quiz ${number}`}
+        {`${sectionLabel} Quiz ${number}`}
       </Typography>
-      <ImportQuestion fileName={fileName} />
+      <ImportQuestion
+        fileName={fileName}
+        sourceType={sourceType}
+        quizIdentifier={number}
+        level={level}
+        subLevel={subLevel}
+      />
     </Box>
   );
 };

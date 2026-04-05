@@ -197,7 +197,7 @@ const UsefulResources = () => {
                   </Typography>
                   <MuiLink 
                     component={Link}
-                    to="/kanji-quiz"
+                    to="/kanji"
                     sx={{ 
                       textDecoration: 'none',
                       color: '#1f883d',

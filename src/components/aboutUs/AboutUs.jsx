@@ -99,7 +99,7 @@ const AboutUs = () => {
       jpTitle: "漢字クイズ",
       description: "Test your kanji knowledge with our comprehensive quizzes.",
       jpDescription: "包括的なクイズで漢字の知識を試しましょう",
-      link: "/kanji-quiz"
+      link: "/kanji"
     },
     {
       icon: <GroupIcon fontSize="large" />,

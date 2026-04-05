@@ -40,7 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/quiz/*" element={<QuizRoutes />} />
-          <Route path="/kanji-quiz" element={<KanjiQuizPage />} />
+          <Route path="/kanji" element={<KanjiQuizPage />} />
           <Route path="/xiaoJieYang" element={<Yang />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/resources" element={<UsefulResources />} />

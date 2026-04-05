@@ -6,9 +6,9 @@ import Quiz from '../components/quiz/Quiz';
 const QuizRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<QuizTable />} />
-      <Route path="kanji/:level/:subLevel/:number" element={<Quiz />} />
-      <Route path="genki-quiz/:level/:number" element={<Quiz />} />
+      <Route index element={<QuizTable />} />
+      <Route path=":type/:level/:subLevel/:number" element={<Quiz />} />
+      <Route path=":type/:level/:number" element={<Quiz />} />
     </Routes>
   );
 };

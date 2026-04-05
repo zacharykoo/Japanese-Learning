@@ -90,7 +90,7 @@ const QuizTable = () => {
           </Typography>
           <Grid container spacing={5} justifyContent="center">
             <Grid item xs={12} sm={6} md={4}>
-              <CardActionArea onClick={() => handleCardClick('genki-quizzes')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+              <CardActionArea onClick={() => handleCardClick('genki')} sx={{ transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
                 <StyledCard sx={{ backgroundColor: '#f5f5f5', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
                   <img src={GenkiIcon} alt="Genki Icon" style={{ width: '60px', marginBottom: '15px' }} />
                   <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1976d2' }}>Student - Created Content</Typography>
@@ -101,7 +101,7 @@ const QuizTable = () => {
         </ContentContainer>
       </FullPageContainer>
       <Box sx={{ marginTop: '20px' }}>
-        <GenkiSection id="genki-quizzes" title="Student - Created Content" />
+        <GenkiSection id="genki" title="Student - Created Content" />
       </Box>
     </>
   );
