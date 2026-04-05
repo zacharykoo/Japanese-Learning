@@ -22,14 +22,21 @@ const Quiz = () => {
   }
 
   useEffect(() => {
-    trackEvent('quiz_view', {
-      source_type: sourceType,
-      quiz_identifier: number,
-      level: level || '',
-      sub_level: subLevel || '',
-      file_name: fileName,
-    });
-  }, [sourceType, number, level, subLevel, fileName]);
+    if (sourceType === 'kanji') {
+      trackEvent('kanji_quiz_view', {
+        level,
+        subLevel: subLevel, 
+        quiz_number: number,
+        file_name: fileName,
+      });
+    } else if (sourceType === 'genki') {
+      trackEvent('genki_quiz_view', {
+        level,
+        quiz_type: number,
+        file_name: fileName,
+      });
+    }
+    }, [sourceType, fileName]);
 
   return (
     <Box pt={4}>

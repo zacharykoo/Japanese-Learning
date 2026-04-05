@@ -12,8 +12,9 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
+import {trackEvent} from '../analytics';
 
-function ImportQuestion({ fileName }) {
+function ImportQuestion({ fileName, sourceType, quizIdentifier, level }) {
     const theme = useTheme();
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -110,6 +111,25 @@ function ImportQuestion({ fileName }) {
                 calculatedScore += 1;
             }
         });
+
+        const totalQuestions = data.length;
+
+        const percentageScore =
+            totalQuestions > 0
+                ? Math.round((calculatedScore / totalQuestions) * 100)
+                : 0;
+
+        trackEvent('quiz_completed_status', {
+            source_type: sourceType || '',
+            quiz_identifier: quizIdentifier || '',
+            level: level || '',
+            file_name: fileName || '',
+            score: calculatedScore,
+            total_questions: totalQuestions,
+            percentage_score: percentageScore,
+            answered_questions: Object.keys(userAnswers).length,
+        });
+
         setScore(calculatedScore);
         setIsSubmitted(true);
     };
