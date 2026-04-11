@@ -3,9 +3,9 @@ import Papa from 'papaparse';
 import { 
   Box, Button, Radio, RadioGroup, FormControlLabel, 
   Typography, Paper, Container, LinearProgress, 
-  Chip, Divider, useTheme, Dialog,
+  Chip, Divider, Dialog,
   DialogActions, DialogContent, DialogContentText, DialogTitle,
-  Accordion, AccordionSummary, AccordionDetails
+  Accordion, AccordionSummary, AccordionDetails, TextField
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -14,8 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import {trackEvent} from '../analytics';
 
-function ImportQuestion({ fileName, sourceType, quizIdentifier, level }) {
-    const theme = useTheme();
+function ImportQuestion({ fileName, sourceType, quizIdentifier, level, subLevel }) {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [userAnswers, setUserAnswers] = useState({});
@@ -25,6 +24,11 @@ function ImportQuestion({ fileName, sourceType, quizIdentifier, level }) {
     const [showBackConfirm, setShowBackConfirm] = useState(false);
     const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
     const [showReview, setShowReview] = useState(false);
+    const [studentFullName, setStudentFullName] = useState('');
+    const [studentUcid, setStudentUcid] = useState('');
+    const quizName = sourceType === 'kanji'
+        ? `${level}${subLevel === 'advanced' ? ' Advanced' : ''} Kanji Quiz ${quizIdentifier}`
+        : `Genki Chapter ${level} ${quizIdentifier} Quiz`;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -447,6 +451,54 @@ function ImportQuestion({ fileName, sourceType, quizIdentifier, level }) {
                     }}>
                         {score} / {data.length}
                     </Typography>
+                    <Box sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                        gap: 2,
+                        mb: 3
+                    }}>
+                        <TextField
+                            label="Full name"
+                            value={studentFullName}
+                            onChange={(event) => setStudentFullName(event.target.value)}
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            helperText="Enter your name for quiz proof."
+                        />
+                        <TextField
+                            label="UCID (optional)"
+                            value={studentUcid}
+                            onChange={(event) => setStudentUcid(event.target.value)}
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            helperText="Add your UCID if you have one."
+                        />
+                    </Box>
+                    <Paper elevation={0} sx={{
+                        p: 2,
+                        mb: 3,
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(110, 142, 251, 0.08)',
+                        border: '1px solid rgba(110, 142, 251, 0.25)',
+                        textAlign: 'left'
+                    }}>
+                        <Typography variant="subtitle2" sx={{ color: '#3a416f', fontWeight: 700, mb: 1 }}>
+                            Quiz Proof
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: '#3a416f' }}>
+                            Quiz: {quizName}
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: '#3a416f' }}>
+                            Full name: {studentFullName.trim() || 'Enter your full name above'}
+                        </Typography>
+                        {studentUcid.trim() && (
+                            <Typography variant="body1" sx={{ color: '#3a416f' }}>
+                                UCID: {studentUcid.trim()}
+                            </Typography>
+                        )}
+                    </Paper>
                     <Divider sx={{ my: 2, borderColor: 'rgba(110, 142, 251, 0.3)' }} />
                     <Typography variant="body1" sx={{ 
                         mb: 3,
